@@ -6,6 +6,7 @@ const { getErrorMessage } = require('../utils/errorUtils');
 
 const { isGuest } = require("../middlewares/authMiddeware");
 
+// Register
 router.post("/register", isGuest, async (req, res) => {
   const userData = req.body;
 
@@ -22,6 +23,7 @@ router.post("/register", isGuest, async (req, res) => {
   }
 });
 
+// Login
 router.post("/login", isGuest, async (req, res) => {
   const { email, password } = req.body;
 
