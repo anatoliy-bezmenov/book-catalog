@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getBooks } from "../services/bookService";
+import { Link } from "react-router-dom";
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
@@ -36,9 +37,14 @@ const BookList = () => {
           <>
               {books.map((book) => (
                 <li key={book._id}>          
-                      <img src={book.image} alt={book.name} width={175} height={250} />
+                  {/* <img src={book.image} alt={book.name} width={175} height={250} />
                   <p>{book.name}</p>
-                  <p>{book.year}</p>
+                  <p>{book.year}</p> */}
+                  <Link to={`/books/${book._id}/details`}>
+                    <img src={book.image} alt={book.name} width={175} height={250} />
+                    <p>{book.name}</p>
+                    <p>{book.year}</p>
+                  </Link>
                 </li>
               ))}
           </>
