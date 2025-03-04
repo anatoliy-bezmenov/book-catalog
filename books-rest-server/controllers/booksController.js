@@ -3,7 +3,6 @@ const router = require("express").Router();
 const booksService = require("../services/booksService");
 const { getErrorMessage } = require("../utils/errorUtils");
 const { isAuth } = require("../middlewares/authMiddeware");
-const { User } = require('../models/User');
 
 router.get("/", async (req, res) => {
   const books = await booksService.getAll().lean();
@@ -58,10 +57,14 @@ router.post("/:booksId/update", isAuth,  isBooksOwner, async (req, res) => {
 });
 
 router.get("/:booksId/details", async (req, res) => {
-  const books = await booksService.getOneDetailed(req.params.booksId).lean();
-  const isOwner = books?.owner && books?.owner._id == req.user?._id;
+  try {
+    const books = await booksService.getOneDetailed(req.params.booksId).lean();
+    const isOwner = books?.owner && books?.owner._id == req.user?._id;
+    res.json({ ...books, isOwner });
+  } catch (err) {
+    res.status(404).json({ error: getErrorMessage(err) });
+  }
 
-  res.json({ ...books, isOwner });
 });
 
 router.get("/:booksId/delete", isAuth , isBooksOwner, async (req, res) => {
