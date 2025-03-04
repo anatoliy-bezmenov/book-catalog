@@ -1,3 +1,3 @@
 module.exports = {
-    SECRET: '8ugiojdfhgjdfio8237sdhfjsdlkfsdh2398fhjksdkfsdl',
+    SECRET: '13278adshjasdhjkasdhjk1278djsaldhnasdh1dnu2',
 };
