@@ -5,6 +5,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ErrorPage from "../components/ErrorPage";
 import Home from '../components/Home';
+import LoginPage from '../auth/LoginPage';
+import RegisterPage from "../auth/RegisterPage";
 
 // Add header and footer in router, so that BrowserRouter is not imported in App.jsx
 // Basically keep all routing logic in the router file, removing routing logic from App.jsx
@@ -16,6 +18,8 @@ const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<BookListPage />} />
         <Route path="/books/:id/details" element={<BookDetails />} />
+        <Route path="/auth/login" element={<LoginPage />} />
+        <Route path="/auth/register" element={<RegisterPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
