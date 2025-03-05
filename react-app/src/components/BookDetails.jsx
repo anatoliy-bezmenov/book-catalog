@@ -28,7 +28,7 @@ const BookDetails = () => {
           };
         })
         .catch((error) => {
-          router.push('/books');
+          navigate('/books');
         })
     };
 
@@ -39,7 +39,7 @@ const BookDetails = () => {
           console.log("without user ", response)
         })
         .catch((error) => {
-          router.push('/books');
+          navigate('/books');
         });
     };
   };
