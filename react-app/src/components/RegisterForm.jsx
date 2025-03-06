@@ -1,122 +1,123 @@
-"use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { register } from "../services/userService";
+import { register as registerUser } from "../services/userService";
 import { setDataToStorage, getToken } from "../services/authService";
 
 const RegisterForm = () => {
-  const [registerForm, setRegisterForm] = useState({ email: "", name: "", password: "",
-  rePassword: "" });
-  const [errors, setErrors] = useState({ email: null, name: null,
-  password: null, rePassword: null, credentials: null });
   const navigate = useNavigate();
   const token = getToken();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    clearErrors,
+    watch,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      email: "",
+      name: "",
+      password: "",
+      rePassword: "",
+    },
+  });
 
   useEffect(() => {
     if (token) {
       navigate("/books");
-    };
+    }
   }, [token, navigate]);
 
-  const handleChange = (e) => {
-    setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
-  };
-
-  const validateEmail = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setErrors((prev) => ({
-      ...prev,
-      email: !registerForm.email ? "Email is required." : !emailRegex.test(registerForm.email) ? "Invalid email format." : null,
-    }));
-  };
-
-  const validateName = () => {
-    if (!registerForm.name) {
-      setErrors((prev) => ({ ...prev, name: "Name is required." }));
-    } else if (registerForm.name.length < 5) {
-      setErrors((prev) => ({ ...prev, name: "Name must be at least 5 characters long." }));
-    } else {
-      setErrors((prev) => ({ ...prev, name: null }));
+  const onSubmit = async (data) => {
+    if (data.password !== data.rePassword) {
+      setError("rePassword", { type: "manual", message: "Passwords must match." });
+      return;
     }
-  };
 
-  const validatePassword = () => {
-    setErrors((prev) => ({
-      ...prev,
-      password: !registerForm.password ? "Password is required." : null,
-    }));
-  };
-
-  const validateRePassword = () => {
-    if (registerForm.rePassword !== registerForm.password) {
-      setErrors((prev) => ({
-        ...prev,
-        rePassword: "Passwords must match."
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        rePassword: null
-      }));
-    }
-  };  
-
-  const registerUser = async (e) => {
-    e.preventDefault();
-    
-    if (registerForm.password !== registerForm.rePassword) {
-      setErrors((prev) => ({
-        ...prev,
-        rePassword: "Passwords must match.",
-      }));
-      return; // Don't proceed with registration if passwords don't match
-    }
-  
     try {
-      const response = await register(registerForm.email, registerForm.name, registerForm.password,
-      registerForm.rePassword);
+      const response = await registerUser(data.email, data.name, data.password, data.rePassword);
       setDataToStorage(response);
-      window.dispatchEvent(new Event("storage")); // Send signal so header can update its html
+      window.dispatchEvent(new Event("storage"));
       navigate("/books");
     } catch (error) {
-      setErrors((prev) => ({
-        ...prev,
-        credentials: "Invalid email address.",
-      }));
+      setError("credentials", { type: "manual", message: "Invalid email address." });
     }
   };
-  
-
-  const isFormInvalid = !registerForm.email || !registerForm.name || !registerForm.password
-  || !registerForm.rePassword || errors.email || errors.name || errors.password
-  || errors.rePassword;
 
   return (
     <div>
-      {errors.credentials && <p className="error">{errors.credentials}</p>}
+      {errors.credentials && <p className="error">{errors.credentials.message}</p>}
       <h2>Register</h2>
-      <form onSubmit={registerUser}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="email">Email:</label>
-          <input id="email" type="email" name="email" value={registerForm.email} onChange={handleChange} onBlur={validateEmail} placeholder="Enter your email" />
-          {errors.email && <p className="error">{errors.email}</p>}
+          <input
+            id="email"
+            type="email"
+            placeholder="Enter your email"
+            {...register("email", {
+              required: "Email is required.",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email format.",
+              },
+              onChange: () => clearErrors("credentials"),
+            })}
+          />
+          {errors.email && <p className="error">{errors.email.message}</p>}
         </div>
+
         <div>
           <label htmlFor="name">Name:</label>
-          <input id="name" type="text" name="name" value={registerForm.name} onChange={handleChange} onBlur={validateName} placeholder="Enter your name" />
-          {errors.name && <p className="error">{errors.name}</p>}
+          <input
+            id="name"
+            type="text"
+            placeholder="Enter your name"
+            {...register("name", {
+              required: "Name is required.",
+              minLength: {
+                value: 5,
+                message: "Name must be at least 5 characters long.",
+              },
+              onChange: () => clearErrors("credentials"),
+            })}
+          />
+          {errors.name && <p className="error">{errors.name.message}</p>}
         </div>
+
         <div>
           <label htmlFor="password">Password:</label>
-          <input id="password" type="password" name="password" value={registerForm.password} onChange={handleChange} onBlur={validatePassword} placeholder="Enter your password" />
-          {errors.password && <p className="error">{errors.password}</p>}
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            {...register("password", {
+              required: "Password is required.",
+              onChange: () => clearErrors("credentials"),
+            })}
+          />
+          {errors.password && <p className="error">{errors.password.message}</p>}
         </div>
+
         <div>
           <label htmlFor="rePassword">Repeat Password:</label>
-          <input id="rePassword" type="password" name="rePassword" value={registerForm.rePassword} onChange={handleChange} onBlur={validateRePassword} placeholder="Repeat your password" />
-          {errors.password && <p className="error">{errors.rePassword}</p>}
+          <input
+            id="rePassword"
+            type="password"
+            placeholder="Repeat your password"
+            {...register("rePassword", {
+              required: "Please confirm your password.",
+              validate: (value) => value === watch("password") || "Passwords must match.",
+              onChange: () => clearErrors("credentials"),
+            })}
+          />
+          {errors.rePassword && <p className="error">{errors.rePassword.message}</p>}
         </div>
-        <button type="submit" disabled={isFormInvalid}>Register</button>
+
+        <button type="submit" disabled={!isValid}>Register</button>
         <p>
           Already have an account? <a href="/auth/login">Login</a> right now!
         </p>

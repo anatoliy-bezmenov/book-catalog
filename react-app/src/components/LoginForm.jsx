@@ -1,70 +1,82 @@
-"use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/userService";
 import { setDataToStorage, getToken } from "../services/authService";
 
 const LoginForm = () => {
-  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({ email: null, password: null, credentials: null });
   const navigate = useNavigate();
   const token = getToken();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    clearErrors,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   useEffect(() => {
     if (token) {
       navigate("/books");
-    };
+    }
   }, [token, navigate]);
 
-  const handleChange = (e) => {
-    setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
-  };
-
-  const validateEmail = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setErrors((prev) => ({
-      ...prev,
-      email: !loginForm.email ? "Email is required." : !emailRegex.test(loginForm.email) ? "Invalid email format." : null,
-    }));
-  };
-
-  const validatePassword = () => {
-    setErrors((prev) => ({
-      ...prev,
-      password: !loginForm.password ? "Password is required." : null,
-    }));
-  };
-
-  const loginUser = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
-      const response = await login(loginForm.email, loginForm.password);
+      const response = await login(data.email, data.password);
       setDataToStorage(response);
-      window.dispatchEvent(new Event("storage")); // Send signal so header can update its html
+      window.dispatchEvent(new Event("storage"));
       navigate("/books");
     } catch (error) {
-      setErrors((prev) => ({ ...prev, credentials: "The requested user could not be found." }));
+      setError("credentials", { type: "manual", message: "The requested user could not be found." });
     }
   };
 
-  const isFormInvalid = !loginForm.email || !loginForm.password || errors.email || errors.password;
-
   return (
     <div>
-      {errors.credentials && <p className="error">{errors.credentials}</p>}
+      {errors.credentials && <p className="error">{errors.credentials.message}</p>}
       <h2>Login</h2>
-      <form onSubmit={loginUser}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="email">Email:</label>
-          <input id="email" type="email" name="email" value={loginForm.email} onChange={handleChange} onBlur={validateEmail} placeholder="Enter your email" />
-          {errors.email && <p className="error">{errors.email}</p>}
+          <input
+            id="email"
+            type="email"
+            placeholder="Enter your email"
+            {...register("email", {
+              required: "Email is required.",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email format.",
+              },
+              onChange: () => clearErrors("credentials"),
+            })}
+          />
+          {errors.email && <p className="error">{errors.email.message}</p>}
         </div>
+
         <div>
           <label htmlFor="password">Password:</label>
-          <input id="password" type="password" name="password" value={loginForm.password} onChange={handleChange} onBlur={validatePassword} placeholder="Enter your password" />
-          {errors.password && <p className="error">{errors.password}</p>}
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            {...register("password", {
+              required: "Password is required.",
+              onChange: () => clearErrors("credentials"),
+            })}
+          />
+          {errors.password && <p className="error">{errors.password.message}</p>}
         </div>
-        <button type="submit" disabled={isFormInvalid}>Login</button>
+
+        <button type="submit" disabled={!isValid}>Login</button>
         <p>
           Don't have an account? <a href="/auth/register">Sign up</a> right now!
         </p>
