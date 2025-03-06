@@ -30,7 +30,10 @@ const Header = () => {
           <li><Link to="/auth/register">Register</Link></li>
           </>
         ) : (
+          <>
+          <li><Link to="/books/create">Add Book</Link></li>
           <li><button onClick={logout}>Logout</button></li>
+          </>
         )}
       </ul>
     </>
