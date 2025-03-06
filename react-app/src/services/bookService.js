@@ -93,3 +93,19 @@ export const saveBookById = async (id, bookData, token) => {
         throw new Error(`Failed to save book: ${error.message}`);
     }
 };
+
+export const searchBook = async (name) => {
+    const headerObject = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    };
+
+    const response = await axios.get(url + `/books/search`, 
+    { headers: headerObject, params: {q: name} } )
+    return new Promise((resolve, reject) => {
+        resolve(response.data)
+    })
+    .catch((ex) => {
+        reject(ex);
+    });
+};

@@ -24,6 +24,7 @@ const Header = () => {
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/books">Books</Link></li>
+        <li><Link to="/books/search">Search</Link></li>
         {!token ? (
           <>
           <li><Link to="/auth/login">Login</Link></li>

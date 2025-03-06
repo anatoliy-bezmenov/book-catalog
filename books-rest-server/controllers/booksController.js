@@ -22,7 +22,7 @@ router.post("/create", isAuth, async (req, res) => {
   }
 });
 
-router.get("/search", async (req, res) => {
+router.get("/books/search", async (req, res) => {
   const query = req.query.q
   try {
     const data = await booksService.search(query)
