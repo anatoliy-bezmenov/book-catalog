@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// const url = 'http://localhost:4000/books';
 const url = 'http://192.168.1.16:4000/books';
 
 export const getBooks = async () => {

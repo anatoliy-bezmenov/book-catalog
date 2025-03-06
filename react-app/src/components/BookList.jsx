@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import { getBooks } from "../services/bookService";
 import { Link } from "react-router-dom";
@@ -10,12 +9,9 @@ const BookList = () => {
     const fetchBooks = async () => {
       try {
           const response = await getBooks();
-          // const sortedBooks = response.books.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-          // setBooks(sortedBooks);
-          setBooks(response);
-          console.log(response);
+          const sortedBooks = response.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          setBooks(sortedBooks);
       } catch (error) {
-          console.log("Failed to fetch books:", error);
       }
   };
   
