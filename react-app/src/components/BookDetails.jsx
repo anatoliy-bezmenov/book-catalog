@@ -69,15 +69,15 @@ const BookDetails = () => {
           <p><strong>Author:</strong> {book.author}</p>
 
 
-          <button type="button" onClick={handleBack}>Back to Books</button>
           {isOwner && (
             <span>
-            <button onClick={deleteBook}>Delete Book</button>
             <Link to={`/books/${book._id}/edit`}>
                 <button>Edit Book</button>
             </Link>
+            <button onClick={deleteBook}>Delete Book</button>
             </span>
           )}
+          <button type="button" onClick={handleBack}>Back to Books</button>
         </div>
       </main>
     </div>
