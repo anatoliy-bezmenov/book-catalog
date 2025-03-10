@@ -16,19 +16,23 @@ import SearchBooksPage from '../books/SearchBooksPage';
 const AppRouter = () => {
   return (
     <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/books" element={<BookListPage />} />
-        <Route path="/books/create" element={<CreateBookPage />} />
-        <Route path="/books/:id/details" element={<BookDetails />} />
-        <Route path="/books/:id/edit" element={<EditBookPage />} />
-        <Route path="/books/search" element={<SearchBooksPage />} />
-        <Route path="/auth/login" element={<LoginPage />} />
-        <Route path="/auth/register" element={<RegisterPage />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-      <Footer />
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1 pb-24">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/books" element={<BookListPage />} />
+            <Route path="/books/create" element={<CreateBookPage />} />
+            <Route path="/books/:id/details" element={<BookDetails />} />
+            <Route path="/books/:id/edit" element={<EditBookPage />} />
+            <Route path="/books/search" element={<SearchBooksPage />} />
+            <Route path="/auth/login" element={<LoginPage />} />
+            <Route path="/auth/register" element={<RegisterPage />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 };
