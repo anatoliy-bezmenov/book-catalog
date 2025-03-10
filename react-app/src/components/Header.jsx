@@ -69,30 +69,6 @@ const Header = () => {
       </div>
     </header>
   );  
-  
-  
-
-  return (
-    <>
-      <h1>Book Hive Header</h1>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/books">Books</Link></li>
-        <li><Link to="/books/search">Search</Link></li>
-        {!token ? (
-          <>
-          <li><Link to="/auth/login">Login</Link></li>
-          <li><Link to="/auth/register">Register</Link></li>
-          </>
-        ) : (
-          <>
-          <li><Link to="/books/create">Add Book</Link></li>
-          <li><button onClick={logout}>Logout</button></li>
-          </>
-        )}
-      </ul>
-    </>
-  );
 };
 
 export default Header;
