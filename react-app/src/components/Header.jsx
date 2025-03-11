@@ -19,7 +19,8 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gradient-to-b from-[#6C5B7B] to-[#1C1C1E] text-white w-[1920px] py-4 shadow-lg mx-auto">
+    <>
+    <header className="w-full fixed top-0 left-0 bg-gradient-to-b from-[#6C5B7B] to-[#1C1C1E] text-white py-4 shadow-lg">
       <div className="flex justify-between items-center px-6">
         <h1 className="text-2xl font-bold">Book Catalog</h1>
         <ul className="flex gap-8">
@@ -68,7 +69,9 @@ const Header = () => {
         </ul>
       </div>
     </header>
-  );  
+    <div className="mt-23"></div>
+    </>
+  );
 };
 
 export default Header;
