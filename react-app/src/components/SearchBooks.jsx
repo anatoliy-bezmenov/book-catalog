@@ -5,6 +5,7 @@ import BookListComponent from "./BookListComponent";
 const SearchBooks = () => {
   const [books, setBooks] = useState([]);
   const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchBooks = async () => {
     try {
@@ -12,6 +13,8 @@ const SearchBooks = () => {
       const sortedBooks = response.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setBooks(sortedBooks);
     } catch (error) {
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -25,10 +28,13 @@ const SearchBooks = () => {
     }
 
     try {
+      setIsLoading(true);
       const result = await searchBook(searchQuery);
       setBooks(result);
     } catch (error) {
       console.error("Error searching books:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,9 +49,19 @@ const SearchBooks = () => {
         placeholder="Search books..." 
         value={query} 
         onChange={handleSearch} 
-        style={{ marginBottom: "10px", padding: "5px", width: "100%" }}
+        className="max-w-[300px] px-4 py-2 border border-purple-500 bg-black/80 text-white 
+        placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-600 
+        focus:border-teal-600 transition duration-200 mt-[80px] md:mt-4 -mb-2"
       />
-      <BookListComponent books={books} />
+      
+      {isLoading ? (
+        <>
+        </>
+      ) : books.length === 0 ? (
+        <h1 className="mt-60">No books available</h1>
+      ) : (
+        <BookListComponent books={books} />
+      )}
     </>
   );
 };

@@ -12,7 +12,6 @@ const BookListPage = () => {
             const sortedBooks = response.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             setBooks(sortedBooks);
         } catch (error) {
-            console.error("Error fetching books:", error);
         }
     };
 
@@ -24,15 +23,15 @@ const BookListPage = () => {
 
     return (
         <div>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                <>
-                    <p>Loaded!</p>
-                    <BookListComponent books={books} />
-                </>
-            )}
-        </div>
+        {isLoading ? (
+            <>
+            </>
+        ) : books.length === 0 ? (
+            <h1 className="mt-60">No books available</h1>
+        ) : (
+            <BookListComponent books={books} />
+        )}
+    </div>
     );
 };
 
