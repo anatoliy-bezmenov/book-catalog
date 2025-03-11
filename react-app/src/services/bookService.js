@@ -14,7 +14,7 @@ export const getBooks = async () => {
         return response.data;
     } catch (error) {
         throw new Error(`Failed to fetch books: ${error.message}`);
-    }
+    };
 };
 
 export const getBookByIdNoUser = async (id) => {
@@ -28,7 +28,7 @@ export const getBookByIdNoUser = async (id) => {
         return response.data;
     } catch (error) {
         throw new Error(`Failed to fetch book details: ${error.message}`);
-    }
+    };
 };
 
 export const getBookById = async (id, token) => {
@@ -44,7 +44,7 @@ export const getBookById = async (id, token) => {
         return response.data;
     } catch (error) {
         throw new Error(`Failed to fetch book details: ${error.message}`);
-    }
+    };
 };
 
 export const deleteBookById = async (id, token) =>{
@@ -59,7 +59,7 @@ export const deleteBookById = async (id, token) =>{
         return response.data;
     } catch (error) {
         throw new Error(`Failed to delete book: ${error.message}`);
-    }
+    };
 };
 
 export const createBook = async (bookData, token) => {
@@ -75,7 +75,7 @@ export const createBook = async (bookData, token) => {
         return response.data;
     } catch (error) {
         throw new Error(`Failed to create book: ${error.message}`);
-    }
+    };
 };
 
 export const saveBookById = async (id, bookData, token) => {
@@ -91,7 +91,7 @@ export const saveBookById = async (id, bookData, token) => {
         return response.data
     } catch (error) {
         throw new Error(`Failed to save book: ${error.message}`);
-    }
+    };
 };
 
 export const searchBook = async (name) => {
@@ -100,12 +100,11 @@ export const searchBook = async (name) => {
         'Content-Type': 'application/json',
     };
 
-    const response = await axios.get(url + `/books/search`, 
-    { headers: headerObject, params: {q: name} } )
-    return new Promise((resolve, reject) => {
-        resolve(response.data)
-    })
-    .catch((ex) => {
-        reject(ex);
-    });
+    try {
+        const response = await axios.get(url + `/books/search`, 
+        { headers: headerObject, params: {q: name} } );
+        return response.data;
+    } catch (error) {
+        throw new Error(`Failed to fetch searched books: ${error.message}`);
+    };
 };
