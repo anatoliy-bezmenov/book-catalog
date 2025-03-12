@@ -60,9 +60,9 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <button onClick={logout} className="text-lg hover:text-teal-300 transition duration-300 focus:outline-none">
+                <Link onClick={logout} className="text-lg hover:text-teal-300 transition duration-300 focus:outline-none">
                   Logout
-                </button>
+                </Link>
               </li>
             </>
           )}
