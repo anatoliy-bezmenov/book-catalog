@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, Link} from "react-router-dom";
 import { register as registerUser } from "../services/userService";
 import { setDataToStorage, getToken } from "../services/authService";
+import registration from '/registration.jpg';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -48,7 +49,13 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-[30vh] bg-black mx-auto mt-[25vh]">
+    <div className="auth-wrapper-div">
+      {/* <div className="auth-image-div">
+        <img
+          src={registration}
+          className="object-cover w-full h-full"
+        />
+      </div> */}
       <div className="w-full max-w-sm p-8 bg-[#121212] shadow-lg rounded-2xl border border-gray-800">
       <h2 className="text-2xl font-semibold text-white text-center mb-4">Register</h2>
       {errors.credentials && <p className="text-red-500 text-sm text-center">{errors.credentials.message}</p>}
@@ -60,7 +67,7 @@ const RegisterForm = () => {
             id="email"
             type="email"
             placeholder="Enter your email"
-            className="w-full mt-1 p-2 bg-black text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="auth-form-input"
             {...register("email", {
               required: "Email is required.",
               pattern: {
@@ -79,7 +86,7 @@ const RegisterForm = () => {
             id="name"
             type="text"
             placeholder="Enter your name"
-            className="w-full mt-1 p-2 bg-black text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="auth-form-input"
             {...register("name", {
               required: "Name is required.",
               minLength: {
@@ -98,7 +105,7 @@ const RegisterForm = () => {
             id="password"
             type="password"
             placeholder="Enter your password"
-            className="w-full mt-1 p-2 bg-black text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="auth-form-input"
             {...register("password", {
               required: "Password is required.",
               onChange: () => clearErrors("credentials"),
@@ -113,7 +120,7 @@ const RegisterForm = () => {
             id="rePassword"
             type="password"
             placeholder="Repeat your password"
-            className="w-full mt-1 p-2 bg-black text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="auth-form-input"
             {...register("rePassword", {
               required: "Please confirm your password.",
               validate: (value) => value === watch("password") || "Passwords must match.",
@@ -126,7 +133,7 @@ const RegisterForm = () => {
         <button
           type="submit"
           disabled={!isValid}
-          className="w-full p-2 text-white bg-purple-600 hover:bg-purple-700 disabled:bg-gray-500 rounded-lg transition duration-200"
+          className="w-1/2 p-2 text-white bg-purple-600 hover:bg-purple-700 disabled:bg-gray-500 rounded-lg transition duration-200"
         >
           Register
         </button>
