@@ -1,6 +1,7 @@
 @import './styles/authStyles.css';
 @import './styles/bookStyles.css';
 @import './styles/homeStyles.css';
+@import './styles//globalStyles.css';
 @import "tailwindcss";
 
 :root {
