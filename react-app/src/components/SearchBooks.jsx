@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getBooks, searchBook } from "../services/bookService";
 import BookListComponent from "./BookListComponent";
+import GOT from '/GOT.jpg';
 
 const SearchBooks = () => {
   const [books, setBooks] = useState([]);
@@ -32,7 +33,6 @@ const SearchBooks = () => {
       const result = await searchBook(searchQuery);
       setBooks(result);
     } catch (error) {
-      console.error("Error searching books:", error);
     } finally {
       setIsLoading(false);
     }
@@ -44,16 +44,22 @@ const SearchBooks = () => {
 
   return (
     <>
-      <input 
-        type="text" 
-        placeholder="Search books..." 
-        value={query} 
-        onChange={handleSearch} 
-        className="max-w-[300px] px-4 py-2 border border-purple-500 bg-black/80 text-white 
+      <div className="auth-image-div">
+        <img
+          src={GOT}
+          className="object-cover w-full h-full"
+        />
+      </div>
+      <input
+        type="text"
+        placeholder="Search books..."
+        value={query}
+        onChange={handleSearch}
+        className="max-w-[300px] px-4 py-2 border border-purple-500 bg-black text-white 
         placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-600 
         focus:border-teal-600 transition duration-200 mt-[80px] md:mt-4 -mb-2"
       />
-      
+
       {isLoading ? (
         <>
         </>

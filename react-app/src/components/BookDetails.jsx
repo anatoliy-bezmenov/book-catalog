@@ -35,18 +35,18 @@ const BookDetails = () => {
     };
   };
 
-    const deleteBook = async () => {
-      deleteBookById(id, token)
-        .then(() => {
-          navigate('/books');
-        })
-        .catch((error) => {
-        })
-    };
+  const deleteBook = async () => {
+    deleteBookById(id, token)
+      .then(() => {
+        navigate('/books');
+      })
+      .catch((error) => {
+      })
+  };
 
-    const handleBack = () => {
-      navigate("/books");
-    };
+  const handleBack = () => {
+    navigate("/books");
+  };
 
   useEffect(() => {
     fetchBook();
@@ -54,30 +54,46 @@ const BookDetails = () => {
 
   return (
     <div>
-      <main>
+      <main className="mr-5">
         <div>
-          <h1>{book.name}</h1>
-          <img
-            src={book.image}
-            alt="Book Image"
-            width={300}
-            height={450}
+          <h2 className="text-[40px] mt-1">{book.name}</h2>
+          <div className="flex items-center justify-center">
+            <img
+              src={book.image}
+              alt="Book Image"
+              width={300}
+              height={450}
+              className="mt-1 mb-6"
             />
-          <p>{book.description}</p>
-          <p><strong>Genre:</strong> {book.genre}</p>
-          <p><strong>Year:</strong> {book.year}</p>
-          <p><strong>Author:</strong> {book.author}</p>
+          </div>
 
+          <p className="ml-10 w-full min-w-[300px] max-w-[600px] mb-2 text-lg text-gray-300 leading-relaxed text-left">
+            {book.description}
+          </p>
+          <div className="flex flex-col items-start ml-[32%] mb-4">
+            <p className="book-details-p">
+              <strong className="text-gray-200">Genre:</strong> {book.genre}
+            </p>
+            <p className="book-details-p">
+              <strong className="text-gray-200">Year:</strong> {book.year}
+            </p>
+            <p className="book-details-p">
+              <strong className="text-gray-200">Author:</strong> {book.author}
+            </p>
+          </div>
 
-          {isOwner && (
-            <span>
-            <Link to={`/books/${book._id}/edit`}>
-                <button>Edit Book</button>
-            </Link>
-            <button onClick={deleteBook}>Delete Book</button>
-            </span>
-          )}
-          <button type="button" onClick={handleBack}>Back to Books</button>
+          <div className="flex justify-center gap-4 mb-6">
+            {isOwner && (
+              <>
+                <Link to={`/books/${book._id}/edit`}>
+                  <button>Edit Book</button>
+                </Link>
+                <button onClick={deleteBook}>Delete Book</button>
+              </>
+            )}
+            <button type="button" onClick={handleBack}>Back to Books</button>
+          </div>
+
         </div>
       </main>
     </div>
