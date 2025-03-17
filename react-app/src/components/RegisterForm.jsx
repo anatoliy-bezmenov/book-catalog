@@ -15,7 +15,7 @@ const RegisterForm = () => {
     setError,
     clearErrors,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -57,7 +57,7 @@ const RegisterForm = () => {
         />
       </div> */}
       <div className="w-full max-w-sm p-8 bg-[#121212] shadow-lg rounded-2xl border border-gray-800">
-      <h2 className="text-2xl font-semibold text-white text-center mb-4">Register</h2>
+      <h2 className="text-3xl font-bold text-center text-purple-400 mb-5">Register</h2>
       {errors.credentials && <p className="text-red-500 text-sm text-center">{errors.credentials.message}</p>}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -132,7 +132,6 @@ const RegisterForm = () => {
 
         <button
           type="submit"
-          disabled={!isValid}
           className="w-1/2 p-2 text-white bg-purple-600 hover:bg-purple-700 disabled:bg-gray-500 rounded-lg transition duration-200"
         >
           Register

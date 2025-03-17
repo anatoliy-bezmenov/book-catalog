@@ -14,7 +14,7 @@ const LoginForm = () => {
     handleSubmit,
     setError,
     clearErrors,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -53,7 +53,7 @@ const LoginForm = () => {
         <h2 className="text-3xl font-bold text-center text-purple-400">Login</h2>
 
         {errors.credentials && (
-          <p className="mt-2 text-sm text-center text-red-500">{errors.credentials.message}</p>
+          <p className="error-message-invalid-credentials">{errors.credentials.message}</p>
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
@@ -75,7 +75,7 @@ const LoginForm = () => {
                 onChange: () => clearErrors("credentials"),
               })}
             />
-            {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
+            {errors.email && <p className="error-message">{errors.email.message}</p>}
           </div>
 
           <div>
@@ -92,12 +92,11 @@ const LoginForm = () => {
                 onChange: () => clearErrors("credentials"),
               })}
             />
-            {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
+            {errors.password && <p className="error-message">{errors.password.message}</p>}
           </div>
 
           <button
             type="submit"
-            disabled={!isValid}
             className="w-1/2 px-4 py-2 font-semibold text-white bg-purple-600 rounded-xl transition duration-200 hover:bg-purple-500 disabled:bg-gray-700"
           >
             Login
