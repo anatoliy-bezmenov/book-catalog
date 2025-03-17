@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate, Link} from "react-router-dom";
 import { register as registerUser } from "../services/userService";
 import { setDataToStorage, getToken } from "../services/authService";
-import registration from '/registration.jpg';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -50,12 +49,6 @@ const RegisterForm = () => {
 
   return (
     <div className="auth-wrapper-div">
-      {/* <div className="auth-image-div">
-        <img
-          src={registration}
-          className="object-cover w-full h-full"
-        />
-      </div> */}
       <div className="w-full max-w-sm p-8 bg-[#121212] shadow-lg rounded-2xl border border-gray-800">
       <h2 className="text-3xl font-bold text-center text-purple-400 mb-5">Register</h2>
       {errors.credentials && <p className="text-red-500 text-sm text-center">{errors.credentials.message}</p>}
