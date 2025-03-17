@@ -74,12 +74,20 @@ const BookDetails = () => {
             <p className="book-details-p">
               <strong className="text-gray-200">Genre:</strong> {book.genre}
             </p>
+            {book.year && (
+              <>
             <p className="book-details-p">
               <strong className="text-gray-200">Year:</strong> {book.year}
             </p>
+              </>
+            )}
+            {book.author && (
+              <>
             <p className="book-details-p">
               <strong className="text-gray-200">Author:</strong> {book.author}
             </p>
+              </>
+            )}
           </div>
 
           <div className="flex justify-center gap-4 mb-6">
