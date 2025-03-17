@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getBooks } from "../services/bookService";
 import BookListComponent from "./BookListComponent";
-import GOT from '/GOT.jpg';
+import bookListImg from '/bookListImg.jpg';
 
 const BookListPage = () => {
     const [books, setBooks] = useState([]);
@@ -24,28 +24,39 @@ const BookListPage = () => {
 
     return (
         <div>
-            {isLoading ? (
-                <>
-                    <div className="auth-image-div">
-                        <img
-                            src={GOT}
-                            className="object-cover w-full h-full"
-                        />
-                    </div>
-                </>
-            ) : books.length === 0 ? (
-                <h1 className="mt-60">No books available</h1>
-            ) : (
-                <>
-                    <div className="auth-image-div">
-                        <img
-                            src={GOT}
-                            className="object-cover w-full h-full"
-                        />
-                    </div>
-                    <BookListComponent books={books} />
-                </>
-            )}
+            <div>
+                {isLoading ? (
+                    <>
+                        <div className="image-div">
+                            <img
+                                src={bookListImg}
+                                className="object-cover w-full h-full"
+                            />
+                        </div>
+                    </>
+                ) : !books ? (
+                    <>
+                    <h1 className="mt-60">No books available</h1>
+                    <div className="image-div">
+                            <img
+                                src={bookListImg}
+                                className="object-cover w-full h-full"
+                            />
+                        </div>
+                    </>
+                    
+                ) : (
+                    <>
+                        <div className="image-div">
+                            <img
+                                src={bookListImg}
+                                className="object-cover w-full h-full"
+                            />
+                        </div>
+                        <BookListComponent books={books} />
+                    </>
+                )}
+            </div>
         </div>
     );
 };

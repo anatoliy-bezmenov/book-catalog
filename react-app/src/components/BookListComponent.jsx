@@ -12,7 +12,7 @@ const BookListComponent = ({ books }) => {
           <Link to={`/books/${book._id}/details`}>
             <p>{book.name}</p>
           </Link>
-            <p>{book.year}</p>
+            <p>{book.genre}</p>
         </li>
       ))}
     </ul>
