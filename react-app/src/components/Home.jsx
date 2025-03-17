@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="auth-image-div">
+      <div className="image-div">
         <img
           src={home}
           className="object-cover w-full h-full"
