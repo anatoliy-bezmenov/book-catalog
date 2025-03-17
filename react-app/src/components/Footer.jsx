@@ -10,7 +10,6 @@ const Footer = () => {
       const scrollPosition = window.scrollY + window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
-      // Show footer when the user scrolls to bottom of the page
       if (scrollPosition >= documentHeight) {
         setIsVisible(true);
       } else {
@@ -18,21 +17,20 @@ const Footer = () => {
       }
     };
 
-    // Initially check if the page is tall enough to scroll, if not, show the footer by default
     if (document.documentElement.scrollHeight <= window.innerHeight) {
-      setIsVisible(true); // Make footer visible if no scrolling is needed
+      setIsVisible(true);
     }
 
     const resetFooter = () => {
       if (document.documentElement.scrollHeight <= window.innerHeight) {
-        setIsVisible(true); // Visible if no scroll
+        setIsVisible(true);
       } else {
-        setIsVisible(false); // Otherwise hide footer
+        setIsVisible(false);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    resetFooter(); // Reset the footer visibility on page load
+    resetFooter();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -41,13 +39,16 @@ const Footer = () => {
 
   return (
     <footer
-      className={`w-full text-center text-2xl bg-gradient-to-b from-[#1C1C1E] to-[#6C5B7B] text-white py-6 fixed bottom-0 left-0 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"
+      className={`w-full text-center text-2xl bg-gradient-to-b from-[#1C1C1E] to-[#6C5B7B] text-white py-6 
+      fixed bottom-0 left-0 transition-opacity duration-300 ${isVisible ? 
+      "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
     >
       <div className="mx-auto w-[275px] flex justify-center">
         Book Catalog 2025
       </div>
     </footer>
+
   );
 };
 
