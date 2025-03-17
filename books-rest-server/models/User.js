@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     },
     createdBooks: [{
         type: mongoose.Types.ObjectId,
-        ref: 'Movies',
+        ref: 'Books',
     }],
 });
 

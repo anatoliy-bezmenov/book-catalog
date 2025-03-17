@@ -8,8 +8,6 @@ const booksSchemma = new mongoose.Schema({
     },
     year: {
         type: Number,
-        required: true,
-        min: [1900, 'Minimum year should be 1900'],
         max: [2025, 'Maximum year should be 2025'],
     },
     genre: {
@@ -19,8 +17,12 @@ const booksSchemma = new mongoose.Schema({
     },
     author: {
         type: String,
-        minLength: [1, 'Author should be at least 1 character'],
-        required: true,
+        required: false,
+        validate: {
+            validator: (v) => !v || v.length > 0, // Allow empty string but require non-empty if provided
+            message: 'Author should not be an empty string.'
+        },
+        // minLength: [1, 'Author should be at least 1 character'],
     },
     description: {
         type: String,
@@ -39,7 +41,7 @@ const booksSchemma = new mongoose.Schema({
     createdAt: Date,
 });
 
-booksSchemma.pre('save', function() {
+booksSchemma.pre('save', function () {
     if (!this.createdAt) {
         this.createdAt = Date.now();
     };
