@@ -94,9 +94,9 @@ const BookDetails = () => {
             {isOwner && (
               <>
                 <Link to={`/books/${book._id}/edit`}>
-                  <button>Edit Book</button>
+                  <button className="edit-button">Edit Book</button>
                 </Link>
-                <button onClick={deleteBook}>Delete Book</button>
+                <button className="delete-button" onClick={deleteBook}>Delete Book</button>
               </>
             )}
             <button type="button" onClick={handleBack}>Back to Books</button>

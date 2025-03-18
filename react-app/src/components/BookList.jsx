@@ -27,32 +27,32 @@ const BookListPage = () => {
             <div>
                 {isLoading ? (
                     <>
-                        <div className="image-div">
+                        {/* <div className="image-div">
                             <img
                                 src={bookListImg}
                                 className="object-cover w-full h-full"
                             />
-                        </div>
+                        </div> */}
                     </>
                 ) : !books ? (
                     <>
                     <h1 className="mt-60">No books available</h1>
-                    <div className="image-div">
+                    {/* <div className="image-div">
                             <img
                                 src={bookListImg}
                                 className="object-cover w-full h-full"
                             />
-                        </div>
+                        </div> */}
                     </>
                     
                 ) : (
                     <>
-                        <div className="image-div">
+                        {/* <div className="image-div">
                             <img
                                 src={bookListImg}
                                 className="object-cover w-full h-full"
                             />
-                        </div>
+                        </div> */}
                         <BookListComponent books={books} />
                     </>
                 )}

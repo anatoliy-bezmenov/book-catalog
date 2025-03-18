@@ -45,12 +45,12 @@ const SearchBooks = () => {
   return (
     <>
     <div>
-      <div className="image-div">
+      {/* <div className="image-div">
         <img
           src={bookListImg}
           className="object-cover w-full h-full"
         />
-      </div>
+      </div> */}
       <input
         type="text"
         placeholder="Search books..."

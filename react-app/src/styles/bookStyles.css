@@ -1,3 +1,25 @@
 .book-details-p {
     @apply text-lg text-gray-300 font-normal;
 }
+
+.delete-button {
+    @apply bg-red-600 text-white border-transparent;
+}
+
+.delete-button:hover {
+    @apply bg-red-600 text-black border-white;
+}
+
+.edit-button {
+    @apply text-black border-transparent;
+}
+
+.edit-button:hover {
+    @apply bg-yellow-500 text-black border-white;
+}
+
+.save-button {
+    @apply w-full py-3 rounded-[8px]
+           hover:bg-yellow-500 hover:text-black hover:border-white
+           focus:outline-none focus:ring-2 focus:ring-teal-500;
+}

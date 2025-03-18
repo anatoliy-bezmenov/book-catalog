@@ -64,7 +64,7 @@ const CreateBook = () => {
               {...registerField("name", {
                 required: "Name is required.",
                 minLength: { value: 2, message: "Name must be at least 2 characters long." },
-                maxLength: { value: 30, message: "Cannot exceed 30 characters." },
+                maxLength: { value: 50, message: "Cannot exceed 50 characters." },
               })}
             />
             {errors.name && <p className="error-message">{errors.name.message}</p>}

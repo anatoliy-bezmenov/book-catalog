@@ -95,7 +95,7 @@ const EditBook = () => {
               {...registerField("name", {
                 required: "Name is required.",
                 minLength: { value: 2, message: "Name must be at least 2 characters long." },
-                maxLength: { value: 30, message: "Cannot exceed 30 characters." },
+                maxLength: { value: 50, message: "Cannot exceed 50 characters." },
               })}
             />
             {errors.name && <p className="error-message">{errors.name.message}</p>}
@@ -195,7 +195,7 @@ const EditBook = () => {
         </div>
 
         <div className="flex gap-4 mt-6">
-          <button type="submit" className="w-full py-3 bg-primary text-white rounded-full hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-teal-500">Save Book</button>
+          <button type="submit" className="save-button">Save Book</button>
           <button type="button" onClick={resetForm} className="w-full py-3 bg-gray-600 text-white rounded-full hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500">Reset Form</button>
           <button type="button" onClick={handleBack} className="w-full py-3 bg-secondary text-white rounded-full hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-teal-500">Back to Books</button>
         </div>
