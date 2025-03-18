@@ -12,13 +12,13 @@ const BookListPage = () => {
             const sortedBooks = response.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             setBooks(sortedBooks);
         } catch (error) {
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
         fetchBooks();
-        const timer = setTimeout(() => setIsLoading(false), 1750);
-        return () => clearTimeout(timer);
     }, []);
 
     return (
