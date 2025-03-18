@@ -1,14 +1,14 @@
-import home from '/home.jpg';
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { getUser } from "../services/authService";
+// import { useEffect } from "react";
+import home from '/home.jpg';
 
 const Home = () => {
   const user = getUser();
   const parsedUser = user ? JSON.parse(user) : null;
 
-  useEffect(() => {
-  }, []);
+  // useEffect(() => {
+  // }, []);
 
   return (
     <div>

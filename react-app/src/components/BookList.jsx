@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getBooks } from "../services/bookService";
 import BookListComponent from "./BookListComponent";
-import bookListImg from '/bookListImg.jpg';
 
 const BookListPage = () => {
     const [books, setBooks] = useState([]);
@@ -18,7 +17,7 @@ const BookListPage = () => {
 
     useEffect(() => {
         fetchBooks();
-        const timer = setTimeout(() => setIsLoading(false), 750);
+        const timer = setTimeout(() => setIsLoading(false), 1750);
         return () => clearTimeout(timer);
     }, []);
 
@@ -27,32 +26,16 @@ const BookListPage = () => {
             <div>
                 {isLoading ? (
                     <>
-                        {/* <div className="image-div">
-                            <img
-                                src={bookListImg}
-                                className="object-cover w-full h-full"
-                            />
-                        </div> */}
+                    <div className="flex justify-center items-center mt-30">
+                        <div className="border-t-4 border-purple-500 border-solid w-16 h-16 rounded-full animate-spin"></div>
+                    </div>
                     </>
-                ) : !books ? (
+                ) : books.length === 0 ? (
                     <>
                     <h1 className="mt-60">No books available</h1>
-                    {/* <div className="image-div">
-                            <img
-                                src={bookListImg}
-                                className="object-cover w-full h-full"
-                            />
-                        </div> */}
                     </>
-                    
                 ) : (
                     <>
-                        {/* <div className="image-div">
-                            <img
-                                src={bookListImg}
-                                className="object-cover w-full h-full"
-                            />
-                        </div> */}
                         <BookListComponent books={books} />
                     </>
                 )}

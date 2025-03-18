@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getBooks, searchBook } from "../services/bookService";
 import BookListComponent from "./BookListComponent";
-import bookListImg from '/bookListImg.jpg';
 
 const SearchBooks = () => {
   const [books, setBooks] = useState([]);
@@ -24,7 +23,7 @@ const SearchBooks = () => {
     setQuery(searchQuery);
 
     if (searchQuery.trim() === "") {
-      fetchBooks(); // Get all books if search query is empty
+      fetchBooks(); // Fetch all books if search query is empty
       return;
     }
 
@@ -45,12 +44,6 @@ const SearchBooks = () => {
   return (
     <>
     <div>
-      {/* <div className="image-div">
-        <img
-          src={bookListImg}
-          className="object-cover w-full h-full"
-        />
-      </div> */}
       <input
         type="text"
         placeholder="Search books..."
@@ -60,9 +53,11 @@ const SearchBooks = () => {
         placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-600 
         focus:border-teal-600 transition duration-200 mt-[80px] md:mt-4 -mb-2"
         />
-
       {isLoading ? (
         <>
+        <div className="flex justify-center items-center mt-30">
+            <div className="border-t-4 border-purple-500 border-solid w-16 h-16 rounded-full animate-spin"></div>
+        </div>
         </>
       ) : books.length === 0 ? (
         <h1 className="mt-60">No books available</h1>
