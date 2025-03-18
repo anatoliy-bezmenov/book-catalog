@@ -24,7 +24,7 @@ cd book-catalog
 ```
 
 ### Rest API Server
-Open a terminal and run
+After that run
 
 ```sh
 cd books-rest-server
