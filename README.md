@@ -45,3 +45,6 @@ npm run dev
 
 ### Open with browser
 http://localhost:5173/
+
+![image](https://github.com/user-attachments/assets/a392bb0a-f7df-4aef-bf02-d913fd37ff2d)
+
