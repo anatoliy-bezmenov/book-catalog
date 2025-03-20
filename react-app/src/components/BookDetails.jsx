@@ -44,7 +44,7 @@ const BookDetails = () => {
         navigate('/books');
       })
       .catch((error) => {
-      })
+      });
   };
 
   const handleBack = () => {

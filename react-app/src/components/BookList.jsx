@@ -26,13 +26,13 @@ const BookListPage = () => {
             <div>
                 {isLoading ? (
                     <>
-                    <div className="flex justify-center items-center mt-30">
-                        <div className="border-t-4 border-purple-500 border-solid w-16 h-16 rounded-full animate-spin"></div>
-                    </div>
+                        <div className="flex justify-center items-center mt-30">
+                            <div className="border-t-4 border-purple-500 border-solid w-16 h-16 rounded-full animate-spin"></div>
+                        </div>
                     </>
                 ) : books.length === 0 ? (
                     <>
-                    <h1 className="mt-60">No books available</h1>
+                        <h1 className="mt-60">No books available</h1>
                     </>
                 ) : (
                     <>
