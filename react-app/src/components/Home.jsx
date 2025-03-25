@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { getUser } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 import home from '/home.jpg';
 
 const Home = () => {
-  const user = getUser();
+  const { user } = useAuth();
   const parsedUser = user ? JSON.parse(user) : null;
 
   return (
@@ -13,7 +13,7 @@ const Home = () => {
         <img src={home} className="object-cover w-full h-full" />
       </div>
 
-      {parsedUser && (
+      {user && (
         <h1 className="text-3xl font-bold text-white-500 mt-6">
           Greetings, {parsedUser.name}
         </h1>
@@ -57,7 +57,7 @@ const Home = () => {
             </Link>
           </motion.div>
 
-          {!parsedUser && (
+          {!user && (
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}

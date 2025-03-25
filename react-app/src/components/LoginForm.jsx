@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../services/userService";
-import { setDataToStorage, getToken } from "../services/authService";
+import { login as loginService } from "../services/userService";
+import { useAuth } from "../context/AuthContext";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const token = getToken();
+  const { token, login } = useAuth();
 
   const {
     register,
@@ -30,9 +30,8 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await login(data.email, data.password);
-      setDataToStorage(response);
-      window.dispatchEvent(new Event("storage"));
+      const response = await loginService(data.email, data.password);
+      login(response.token, response.email, response.name);
       navigate("/books");
     } catch (error) {
       setError("credentials", { type: "manual", message: "The requested user could not be found." });
