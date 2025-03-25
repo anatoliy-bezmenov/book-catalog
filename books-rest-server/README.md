@@ -1,7 +1,7 @@
 # books-rest-server
 
 ```sh
-cd books-catalog
+cd book-catalog
 ```
 
 ## Rest API Server
