@@ -70,14 +70,7 @@ const EditBook = () => {
   };
 
   const resetForm = () => {
-    reset({
-      name: "",
-      year: "",
-      genre: "",
-      author: "",
-      description: "",
-      image: "",
-    });
+    reset();
   };
 
   return (
