@@ -26,13 +26,13 @@ const LoginForm = () => {
     if (token) {
       navigate("/books");
     }
-  }, [token, navigate]);
+  }, [navigate]);
 
   const onSubmit = async (data) => {
     try {
       const response = await loginService(data.email, data.password);
       login(response.token, response.email, response.name);
-      navigate("/books");
+      navigate("/");
     } catch (error) {
       setError("credentials", { type: "manual", message: "The requested user could not be found." });
     }

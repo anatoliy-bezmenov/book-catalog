@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";  // Use the AuthContext here
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
-  const { token, logout } = useAuth();  // Use token and logout from AuthContext
+  const { token, logout } = useAuth();  // token and logout from AuthContext
 
   return (
     <>
@@ -46,7 +46,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/books" onClick={logout} className="text-lg hover:text-teal-300 transition duration-300 focus:outline-none">
+                  <Link to="/" onClick={logout} className="text-lg hover:text-teal-300 transition duration-300 focus:outline-none">
                     Logout
                   </Link>
                 </li>

@@ -29,7 +29,7 @@ const RegisterForm = () => {
     if (token) {
       navigate("/books");
     }
-  }, [token, navigate]);
+  }, [navigate]);
 
   const onSubmit = async (data) => {
     if (data.password !== data.rePassword) {
@@ -40,7 +40,7 @@ const RegisterForm = () => {
     try {
       const response = await registerUser(data.email, data.name, data.password, data.rePassword);
       login(response.token, response.email, response.name);
-      navigate("/books");
+      navigate("/");
     } catch (error) {
       setError("credentials", { type: "manual", message: "Invalid email address." });
     }

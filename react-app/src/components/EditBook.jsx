@@ -5,7 +5,7 @@ import { saveBookById, getBookById } from "../services/bookService";
 import { getToken } from "../services/authService";
 
 const EditBook = () => {
-  const navigate = useNavigate(); // useNavigate hook for redirection
+  const navigate = useNavigate(); // hook for redirection
   const { id } = useParams();
   const token = getToken();
   const [errorMessage, setErrorMessage] = useState(null);
