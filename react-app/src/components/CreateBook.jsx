@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { createBook } from "../services/bookService";
-import { getToken } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 
 const CreateBook = () => {
   const navigate = useNavigate();
-  const token = getToken();
+  const { token } = useAuth();
   const {
     register: registerField,
     handleSubmit,

@@ -1,7 +1,7 @@
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getBookByIdNoUser, getBookById, deleteBookById } from "../services/bookService";
-import { getToken } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 
 const BookDetails = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const BookDetails = () => {
   const [book, setBook] = useState({});
   const [isOwner, setIsOwner] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const token = getToken();
+  const { token } = useAuth();
 
   const fetchBook = async () => {
     if (token) {

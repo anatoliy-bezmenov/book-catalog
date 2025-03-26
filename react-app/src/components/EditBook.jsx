@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { saveBookById, getBookById } from "../services/bookService";
-import { getToken } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
+// import { getToken } from "../services/authService";
 
 const EditBook = () => {
   const navigate = useNavigate(); // hook for redirection
   const { id } = useParams();
-  const token = getToken();
+  const { token } = useAuth();
+  // const token = getToken();
   const [errorMessage, setErrorMessage] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
   const {
