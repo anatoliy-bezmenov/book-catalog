@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
@@ -7,20 +8,32 @@ const Home = () => {
   const { user } = useAuth();
   const parsedUser = user ? JSON.parse(user) : null;
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
   return (
     <div>
-      <div className="image-div">
-        <img src={home} className="object-cover w-full h-full" />
+      <div
+        className={`image-div ${isLoading ? "" : ""}`}
+      >
+        <img
+          src={home}
+          className={`object-cover w-full h-full transition-opacity duration-500 ${isLoading ? "opacity-0" : "opacity-100"}`}
+          onLoad={handleImageLoad} // // set to false when image is loaded
+        />
       </div>
 
       {user && (
-        <motion.h1 
+        <motion.h1
           className="text-3xl font-bold text-white-500 mt-6"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-            Greetings, {parsedUser.name}
+          Greetings, {parsedUser.name}
         </motion.h1>
       )}
 
@@ -75,7 +88,6 @@ const Home = () => {
             </motion.div>
           )}
         </motion.div>
-
       </div>
     </div>
   );

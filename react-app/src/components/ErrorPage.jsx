@@ -1,12 +1,25 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import errorImg from "/errorImg.jpg";
 
 const ErrorPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
   return (
     <div>
-      <div className="image-div">
-        <img src={errorImg} className="object-cover w-full h-full" />
+      <div
+        className={`image-div ${isLoading ? "" : ""}`}
+      >
+        <img
+          src={errorImg}
+          className={`object-cover w-full h-full transition-opacity duration-500 ${isLoading ? "opacity-0" : "opacity-100"}`} 
+          onLoad={handleImageLoad}
+        />
       </div>
 
       <div className="mt-40 text-center">
