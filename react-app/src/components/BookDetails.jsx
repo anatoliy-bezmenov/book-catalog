@@ -82,7 +82,12 @@ const BookDetails = () => {
               <p className="book-details-p">
                 <strong className="text-gray-200">Genre:</strong> {book.genre}
               </p>
-              {book.year && (
+              {book.year < 0 && (
+                <p className="book-details-p">
+                  <strong className="text-gray-200">Year:</strong> {Math.abs(book.year)} BC
+                </p>
+              )}
+              {book.year > 0 && (
                 <p className="book-details-p">
                   <strong className="text-gray-200">Year:</strong> {book.year}
                 </p>

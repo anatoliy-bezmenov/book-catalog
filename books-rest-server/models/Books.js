@@ -57,7 +57,6 @@ booksSchemma.pre('save', function () {
           this.year = parseInt(this.year, 10); // Convert to number
         }
       }
-    next();
 });
 
 const Books = mongoose.model('Books', booksSchemma);

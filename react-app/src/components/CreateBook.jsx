@@ -34,6 +34,15 @@ const CreateBook = () => {
 
   const onSubmit = async (data) => {
     try {
+      if (typeof data.year === "string") {
+        const bcMatch = data.year.match(/^(\d{1,4})\s?(B\.?C)$/i);
+        if (bcMatch) {
+          data.year = -parseInt(bcMatch[1], 10);
+        } else {
+          data.year = parseInt(data.year, 10) || "";
+        }
+      }
+
       await createBook(data, token);
       navigate("/books");
     } catch (error) {
@@ -96,15 +105,23 @@ const CreateBook = () => {
             <input
               id="year"
               type="text"
-              placeholder="1966"
+              placeholder="1966 or 67 BC"
               className="w-full p-3 mt-1 bg-gray-800 text-white border border-gray-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
               {...registerField("year", {
-                pattern: {
-                  value: /^\d+$/,
-                  message: "Year must be a natural number.",
-                },
-                validate: {
-                  max: (value) => value <= 2025 || "Year cannot exceed 2025.",
+                validate: (value) => {
+                  if (!value) {
+                    return true
+                  };
+                  const bcMatch = value.match(/^(\d{1,4})\s?(B\.?C)$/i);
+                  if (bcMatch) {
+                    return true
+                  };
+                  const year = parseInt(value, 10);
+                  if (!isNaN(year) && year <= 2025 && year >= 0) {
+                    return true
+                  };
+
+                  return "Enter a valid year (max 2025 AD, min 5000 BC).";
                 },
               })}
             />

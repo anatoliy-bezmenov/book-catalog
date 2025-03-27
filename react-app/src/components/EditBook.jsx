@@ -47,7 +47,7 @@ const EditBook = () => {
       setIsOwner(true);
       reset({
         name: response.name || "",
-        year: response.year || "",
+        year: response.year < 0 ? `${Math.abs(response.year)} BC` : response.year || "",
         genre: response.genre || "",
         author: response.author || "",
         description: response.description || "",
@@ -60,6 +60,15 @@ const EditBook = () => {
 
   const onSubmit = async (data) => {
     try {
+      if (typeof data.year === "string") {
+        const bcMatch = data.year.match(/^(\d{1,4})\s?(B\.?C)$/i);
+        if (bcMatch) {
+          data.year = -parseInt(bcMatch[1], 10); // Convert BC to negative number
+        } else {
+          data.year = parseInt(data.year, 10) || ""; // Convert normal years to numbers
+        }
+      }
+
       await saveBookById(id, data, token);
       navigate("/books");
     } catch (error) {
@@ -122,15 +131,23 @@ const EditBook = () => {
             <input
               id="year"
               type="text"
-              placeholder="1966"
+              placeholder="1966 or 67 BC"
               className="w-full p-3 mt-1 bg-gray-800 text-white border border-gray-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
               {...registerField("year", {
-                pattern: {
-                  value: /^\d+$/,
-                  message: "Year must be a natural number.",
-                },
-                validate: {
-                  max: (value) => value <= 2025 || "Year cannot exceed 2025.",
+                validate: (value) => {
+                  if (!value) {
+                    return true
+                  };
+                  const bcMatch = value.match(/^(\d{1,4})\s?(B\.?C)$/i);
+                  if (bcMatch) {
+                    return true
+                  };
+                  const year = parseInt(value, 10);
+                  if (!isNaN(year) && year <= 2025) {
+                    return true
+                  };
+
+                  return "Enter a valid year (max 2025 AD, min 5000 BC).";
                 },
               })}
             />
