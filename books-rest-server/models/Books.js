@@ -8,8 +8,13 @@ const booksSchemma = new mongoose.Schema({
     },
     year: {
         type: Number,
-        max: [2025, 'Maximum year should be 2025'],
-    },
+        validate: {
+          validator: function (value) {
+            return value > 0 ? value <= 2025 : value >= -5000;
+          },
+          message: "Enter a valid year (max 2025 AD, min 5000 BC).",
+        },
+      },
     genre: {
         type: String,
         minLength: [1, 'Genre should be at least 1 character'],
@@ -22,7 +27,6 @@ const booksSchemma = new mongoose.Schema({
             validator: (v) => !v || v.length > 0, // Allow empty string but require non-empty if provided
             message: 'Author should not be an empty string.'
         },
-        // minLength: [1, 'Author should be at least 1 character'],
     },
     description: {
         type: String,
@@ -45,6 +49,15 @@ booksSchemma.pre('save', function () {
     if (!this.createdAt) {
         this.createdAt = Date.now();
     };
+    if (typeof this.year === "string") {
+        const bcMatch = this.year.match(/^(\d{1,4})\s?(B\.?C)$/i);
+        if (bcMatch) {
+          this.year = -parseInt(bcMatch[1], 10); // Convert BC to negative
+        } else {
+          this.year = parseInt(this.year, 10); // Convert to number
+        }
+      }
+    next();
 });
 
 const Books = mongoose.model('Books', booksSchemma);
