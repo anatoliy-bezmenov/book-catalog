@@ -11,29 +11,29 @@ const Header = () => {
           <h1 className="text-2xl font-bold">Book Hive</h1>
           <ul className="flex gap-8">
             <li>
-              <Link to="/" className="text-lg hover:text-teal-300 transition duration-300">
+              <Link to="/" className="header-li">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/books" className="text-lg hover:text-teal-300 transition duration-300">
+              <Link to="/books" className="header-li">
                 Books
               </Link>
             </li>
             <li>
-              <Link to="/books/search" className="text-lg hover:text-teal-300 transition duration-300">
+              <Link to="/books/search" className="header-li">
                 Search
               </Link>
             </li>
             {!token ? (
               <>
                 <li>
-                  <Link to="/auth/login" className="text-lg hover:text-teal-300 transition duration-300">
+                  <Link to="/auth/login" className="header-li">
                     Login
                   </Link>
                 </li>
                 <li>
-                  <Link to="/auth/register" className="text-lg hover:text-teal-300 transition duration-300">
+                  <Link to="/auth/register" className="header-li">
                     Register
                   </Link>
                 </li>
@@ -41,12 +41,12 @@ const Header = () => {
             ) : (
               <>
                 <li>
-                  <Link to="/books/create" className="text-lg hover:text-teal-300 transition duration-300">
+                  <Link to="/books/create" className="header-li">
                     Add Book
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" onClick={logout} className="text-lg hover:text-teal-300 transition duration-300 focus:outline-none">
+                  <Link to="/" onClick={logout} className="header-li-logout">
                     Logout
                   </Link>
                 </li>

@@ -3,7 +3,7 @@ import { getToken, getUser, removeToken, setDataToStorage } from '../services/au
 
 const AuthContext = createContext();
 
-export const useAuth = () => {
+export const useAuth = () => { // useAuth --> custom hook
   return useContext(AuthContext);
 };
 
@@ -12,14 +12,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getUser());
 
   useEffect(() => {
-    const checkToken = () => {
       setToken(getToken());
-    };
-    checkToken();
-    const checkUser = () => {
       setUser(getUser());
-    };
-    checkUser();
   }, [token, user]);
 
   const login = (token, email, name) => {

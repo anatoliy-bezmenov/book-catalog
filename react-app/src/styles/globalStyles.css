@@ -13,3 +13,11 @@
 .error-message-invalid-credentials {
     @apply text-red-500;
 }
+
+.header-li {
+    @apply text-lg hover:text-teal-500 transition duration-300;
+}
+
+.header-li-logout {
+    @apply text-lg hover:text-teal-300 transition duration-300 focus:outline-none;
+}

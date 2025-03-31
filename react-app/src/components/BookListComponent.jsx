@@ -10,7 +10,7 @@ const BookListComponent = ({ books }) => {
             <img src={book.image} alt={book.name} width={175} height={250} />
           </Link>
           <Link to={`/books/${book._id}/details`}>
-            <p className="mt-2">{book.name}</p>
+            <p className="hover:text-yellow-500 transition duration-300 mt-2">{book.name}</p>
           </Link>
             <p>{book.genre}</p>
         </li>
