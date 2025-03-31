@@ -135,7 +135,8 @@ const EditBook = () => {
               className="w-full p-3 mt-1 bg-gray-800 text-white border border-gray-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
               {...registerField("year", {
                 validate: (value) => {
-                  if (!value) {
+                  if (!value || value) { // gotta add || value -> otherwise it won't save
+                    // unless the user clicks the input field
                     return true
                   };
                   const bcMatch = value.match(/^(\d{1,4})\s?(B\.?C)$/i);
@@ -195,6 +196,7 @@ const EditBook = () => {
           <label htmlFor="description" className="block text-lg font-medium">Description:</label>
           <textarea
             id="description"
+            type="textarea"
             placeholder="The Hobbit is set in Middle-earth and follows home-loving Bilbo Baggins..."
             rows="5"
             className="w-full p-3 mt-1 bg-gray-800 text-white border border-gray-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"

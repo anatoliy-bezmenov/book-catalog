@@ -12,9 +12,13 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getUser());
 
   useEffect(() => {
-    const checkToken = () => setToken(getToken());
+    const checkToken = () => {
+      setToken(getToken());
+    };
     checkToken();
-    const checkUser = () => setUser(getUser());
+    const checkUser = () => {
+      setUser(getUser());
+    };
     checkUser();
   }, [token, user]);
 
